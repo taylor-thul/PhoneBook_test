@@ -16,12 +16,12 @@ public class PhoneRecord
     private long id;
 
     @Column(name = "firstname", nullable = false) // required
-    private String firstname;
+    private String firstName;
 
     @Column(name = "middleinitial") // TBD: Should do check for length <= 1 ?
     private String middleInitial;
 
-    @Column(name = "lastName") // not required?
+    @Column(name = "lastname") // not required?
     private String lastName;
 
     @Column(name = "phonenumber") // optional(?) + validated
@@ -34,11 +34,11 @@ public class PhoneRecord
     private String address;
 
     //----------------------------------------------------------------------------------------------------------
-    private PhoneRecord() {}
+    public PhoneRecord() {}
 
-    private PhoneRecord(String firstName, String middleInitial, String lastName, String phoneNumber, String email, String address)
+    public PhoneRecord(String firstName, String middleInitial, String lastName, String phoneNumber, String email, String address)
     {
-        this.firstname      = notNull(firstname);
+        this.firstName      = notNull(firstName);
         this.middleInitial  = notNull(middleInitial);
         this.lastName       = notNull(lastName);
         this.phoneNumber    = notNull(phoneNumber);
@@ -46,9 +46,9 @@ public class PhoneRecord
         this.address        = notNull(address);
     }
 
-    private PhoneRecord(PhoneRecord o)
+    public PhoneRecord(PhoneRecord o)
     {
-        this.firstname      = notNull(o.firstname);
+        this.firstName      = notNull(o.firstName);
         this.middleInitial  = notNull(o.middleInitial);
         this.lastName       = notNull(o.lastName);
         this.phoneNumber    = notNull(o.phoneNumber);
@@ -115,7 +115,7 @@ public class PhoneRecord
      */
     public static boolean validate(PhoneRecord record)
     {
-        return validate(record.firstname, record.middleInitial, record.lastName, record.phoneNumber, record.email, record.address);
+        return validate(record.firstName, record.middleInitial, record.lastName, record.phoneNumber, record.email, record.address);
     }
 
     public static boolean validate(String firstName, String middleInitial, String lastName, String phoneNumber, String email, String address)
@@ -164,7 +164,7 @@ public class PhoneRecord
     //----------------------------------------------------------------------------------------------------------
     public long getId()                 { return id; }
 
-    public String getFirstname()        { return firstname; }
+    public String getFirstName()        { return firstName; }
 
     public String getMiddleInitial()    { return middleInitial; }
 
@@ -178,7 +178,7 @@ public class PhoneRecord
 
 
     //----------------------------------------------------------------------------------------------------------
-    public void setFirstname(String firstName)          { this.firstname    = firstName; }
+    public void setFirstName(String firstName)          { this.firstName    = firstName; }
 
     public void setMiddleInitial(String middleInitial)  { this.middleInitial = middleInitial; }
 
@@ -194,6 +194,6 @@ public class PhoneRecord
     @Override
     public String toString()
     {
-        return "PhoneRecord[firstname=" + firstname + ", middleInitial= " + middleInitial +", lastName=" + lastName + "]";
+        return "PhoneRecord[firstname=" + firstName + ", middleInitial= " + middleInitial +", lastName=" + lastName + "]";
     }
 }

@@ -6,13 +6,11 @@ import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AddRecordComponent } from './components/add-record/add-record.component';
 import { RecordListComponent } from './components/record-list/record-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddRecordComponent,
     RecordListComponent
   ],
   imports: [

@@ -1,5 +1,5 @@
 /**
- * 
+ * TBD: Add in requests to get regex validation strings?
  * 
  */
 package com.tt.phone_book_test.controller;
@@ -51,12 +51,15 @@ public class PhoneBookController
 
 
     //----------------------------------------------------------------------------------------------
-    @PostMapping("records")
+    @PostMapping("records/add")
     public ResponseEntity<PhoneRecord> createPhoneRecord(@RequestBody PhoneRecord record)
     {
-        System.out.println("Inside createPhoneRecord: " + record.toString()); // remove
-        
-        PhoneRecord ret = phoneRecordRepository.save( PhoneRecord.create(record) );
+        if( PhoneRecord.validate(record) == false)
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE); 
+        }
+
+        PhoneRecord ret = phoneRecordRepository.save( record );
         if(ret == null)
         {
             // Generate some additional message here to report back to the user?
@@ -65,6 +68,64 @@ public class PhoneBookController
         else
         {
             return new ResponseEntity<>(ret, HttpStatus.CREATED);
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------
+    @PostMapping("records/update")
+    public ResponseEntity<PhoneRecord> updatePhoneRecord(@RequestBody PhoneRecord record)
+    {
+        if( PhoneRecord.validate(record) == false)
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE); 
+        }
+
+        try
+        {
+            // Delete old record
+            phoneRecordRepository.deleteById( record.getId() ); 
+
+            // Now add new
+            PhoneRecord ret = phoneRecordRepository.save( record );
+            if(ret == null)
+            {
+                // Generate some additional message here to report back to the user?
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            else
+            {
+                return new ResponseEntity<>(ret, HttpStatus.CREATED);
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------
+    @PostMapping("records/delete")
+    public ResponseEntity<PhoneRecord> deletePhoneRecord(@RequestBody String idString)
+    {
+        try
+        {
+            long id = Long.parseLong(idString);
+
+            Optional<PhoneRecord> exists = phoneRecordRepository.findById(id);
+            if( exists.isPresent() ) 
+            {
+                PhoneRecord rec = exists.get();
+                phoneRecordRepository.delete(rec);
+                return new ResponseEntity<>(rec, HttpStatus.ACCEPTED);
+            }
+            else
+            {
+                return new ResponseEntity<>(null, HttpStatus.ACCEPTED); // Accepted is fine?
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }

@@ -1,1 +1,90 @@
-<p>record-list works!</p>
+<div>
+    <!-- Put add functionality here -->
+    <button type="button" (click)="configureForAdd(); addRecordDialog.show()">Add</button>
+
+    <dialog #addRecordDialog>
+      <p style="font-size: large; font-weight: bold;">{{dialogDisplayText}}</p>
+      <div class="submit-form">
+        <table>
+          <tr>
+            <th>First Name</th>
+            <th>Middle Initial</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Home Address</th>
+          </tr>
+
+          <tbody>
+            <tr>
+              <td><input
+                type="text"
+                [(ngModel)]="newRecord.firstName"
+                />
+              </td>
+              <td><input
+                type="text"
+                [(ngModel)]="newRecord.middleInitial"
+                />
+              </td>
+              <td><input
+                type="text"
+                [(ngModel)]="newRecord.lastName"
+                />
+              </td>
+              <td><input
+                type="text"
+                [(ngModel)]="newRecord.phoneNumber"
+                />
+              </td>
+              <td><input
+                type="text"
+                [(ngModel)]="newRecord.email"
+                />
+              </td>
+              <td><input
+                type="text"
+                [(ngModel)]="newRecord.address"
+                />
+              </td>
+            </tr>
+          <tbody>
+        </table>
+        <!-- <button (click)="addRecordDialog.close()">Close</button> -->
+      </div>
+      <div>
+        <p style="white-space: pre-wrap; margin: auto; padding: 10px;">{{addOrEditMessage}}</p>
+
+        <button (click)="submitPhoneRecord()">{{dialogDisplayButtonText}}</button>
+        <button (click)="addRecordDialog.close()">Close</button>
+      </div>
+    </dialog>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Middle Initial</th>
+      <th>Last Name</th>
+      <th>Phone Number</th>
+      <th>Email</th>
+      <th>Home Address</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
+
+    <tbody>
+        <tr *ngFor="let record of records">
+            <td>{{record.id}}</td>
+            <td>{{record.firstName}}</td>
+            <td>{{record.middleInitial}}</td>
+            <td>{{record.lastName}}</td>
+            <td>{{record.phoneNumber}}</td>
+            <td>{{record.email}}</td>
+            <td>{{record.address}}</td>
+            <td style="text-align: center;"><button type="button" style="width: 100%;" (click)="deleteRecord(record.id)" >-X-</button></td> 
+            <td style="text-align: center;"><button type="button" style="width: 100%;" (click)="configureForEdit(record);addRecordDialog.show()" >. . .</button></td> 
+        </tr>
+    </tbody>
+  </table>
+</div>

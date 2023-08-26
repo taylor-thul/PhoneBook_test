@@ -1,0 +1,30 @@
+table, th, td {
+    border: 1px solid rgb(94, 93, 93);
+    border-collapse: collapse;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: #cde0ec;
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+th {
+    background-color: #ffffff;
+    border: 2px solid black;
+}
+
+button {
+    background-color: #cde0ec;
+    font-weight: bold;
+    padding: 5px;
+}
+
+input {
+    border: none;
+}
