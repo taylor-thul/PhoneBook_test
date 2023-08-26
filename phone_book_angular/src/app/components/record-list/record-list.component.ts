@@ -7,6 +7,14 @@ import { PhonebookService } from 'src/app/services/phonebook.service';
   templateUrl: './record-list.component.html',
   styleUrls: ['./record-list.component.css']
 })
+
+/**
+ * Lists all PhoneRecords, with ability to delete/edit/add
+ * 
+ * TODO: Should maybe add in a scroll-pane and/or split up entries across multiple table entires (maybe 100-ish per page?)
+ *      May want to update back-end to be able to specifically request only certain data sets
+ *      if data were expected to get large. (ex; requesting records 3601 -> 3700)?
+ */
 export class RecordListComponent implements OnInit
 {
     ngOnInit(): void { this.populateRecords(); }
@@ -77,6 +85,11 @@ export class RecordListComponent implements OnInit
 
 
     //----------------------------------------------------------------------------
+    /**
+     * User add/delete button. Validate changes and propogate request to server
+     * 
+     * @returns 
+     */
     submitPhoneRecord(): void
     {
       const data: PhoneRecord = {
@@ -166,7 +179,7 @@ export class RecordListComponent implements OnInit
     }
   
     //----------------------------------------------------------------------------
-    clearDialogForm(): void
+    private clearDialogForm(): void
     {
       this.newRecord = {
         id: null,
@@ -182,6 +195,9 @@ export class RecordListComponent implements OnInit
     }
 
     //----------------------------------------------------------------------------
+    /**
+     * User hit "add" button. Update dialog text and remove edit variables
+     */
     configureForAdd(): void
     {
       this.dialogDisplayText = "Create new Phone Record";
@@ -191,6 +207,10 @@ export class RecordListComponent implements OnInit
     }
 
     //----------------------------------------------------------------------------
+    /**
+     * User hit "edit" button. Update dialog text and set newRecord values to 
+     * table entry selected
+     */
     configureForEdit(oldRecord: PhoneRecord): void
     {
       this.dialogDisplayText = "Edit Phone Record";
