@@ -1,5 +1,7 @@
-/*
-TBD: Shouldm maybe ask the server for the regex/rules? That way if back-end changes regex, front-end will inherit
+/**
+ * TBD: Shouldm maybe ask the server for the regex/rules? That way if back-end changes regex, front-end will inherit
+ * 
+ * Data validation is being done here. May want to move to a different class if other objects will make use of them
 */
 
 export class PhoneRecord {
