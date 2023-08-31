@@ -136,12 +136,12 @@ public class PhoneRecord
      * 
      * Using regex 6 (RFC 5322) from: https://www.baeldung.com/java-email-validation-regex
      */
-    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    private static final Pattern EMAIL_REGEX = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
     public static boolean validateEmail(String email)
     {
         if((email == null) || email.isBlank()) return true; // empty/null valid
 
-        return Pattern.matches(EMAIL_REGEX, email);
+        return EMAIL_REGEX.matcher(email).matches();
     }
 
 
@@ -150,14 +150,13 @@ public class PhoneRecord
      * Only performing regex check if not null/empty.
      * 
      * Regex matching exact pattern: XXX.XXX.XXXX
-     * 
      */
-    private static final String PHONE_NUMBER_REGEX = "^(\\d{3}[.]){2}\\d{4}$";
+    private static final Pattern PHONE_NUMBER_REGEX = Pattern.compile("^(\\d{3}[.]){2}\\d{4}$");
     public static boolean validatePhoneNumber(String phoneNumber)
     {
-        if((phoneNumber == null) || phoneNumber.isEmpty()) return true;
+        if((phoneNumber == null) || phoneNumber.isBlank()) return true;
 
-        return Pattern.matches(PHONE_NUMBER_REGEX, phoneNumber);
+        return PHONE_NUMBER_REGEX.matcher(phoneNumber).matches();
     }
 
 
